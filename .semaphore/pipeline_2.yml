@@ -1,0 +1,13 @@
+version: v1.0
+name: k8saas AKS Integration Tests
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2004
+blocks:
+  - name: AKS Integration Test
+    task:
+      jobs:
+        - name: AKS Integration Test
+          commands:
+            - echo "AKS Integration Tests"
