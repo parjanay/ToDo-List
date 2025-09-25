@@ -10,4 +10,4 @@ blocks:
       jobs:
         - name: AKS Integration Test
           commands:
-            - echo "AKS Integration Tests"
+            - exit 1
