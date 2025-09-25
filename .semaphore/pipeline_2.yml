@@ -10,9 +10,4 @@ blocks:
       jobs:
         - name: AKS Integration Test
           commands:
-            - 'if [ $((RANDOM % 2)) -eq 0 ]; then'
-            - '  echo "Random fail ❌"'
-            - '  exit 1'
-            - else
-            - '  echo "Random pass ✅"'
-            - fi
+            - 'bash -c ''if [ $((RANDOM % 2)) -eq 0 ]; then echo "Fail ❌"; exit 1; else echo "Pass ✅"; fi'''
