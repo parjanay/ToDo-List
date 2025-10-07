@@ -11,3 +11,4 @@ blocks:
         - name: automatic-deployments
           commands:
             - echo "automatic-deployments"
+            - echo "moj masti"
