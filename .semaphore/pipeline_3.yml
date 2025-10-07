@@ -1,0 +1,13 @@
+version: v1.0
+name: ' k8saas EKS Integration Tests'
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2004
+blocks:
+  - name: EKS Integration Tests
+    task:
+      jobs:
+        - name: EKS Integration Tests
+          commands:
+            - echo "EKS Integration Tests"

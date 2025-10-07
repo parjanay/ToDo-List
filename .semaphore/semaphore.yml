@@ -1,0 +1,73 @@
+version: v1.0
+name: k8saas Build
+agent:
+  machine:
+    type: f1-standard-2
+    os_image: ubuntu2204
+blocks:
+  - name: lint-other
+    task:
+      jobs:
+        - name: lint-yaml
+          commands:
+            - echo "lint-yaml"
+        - name: lint-kustomize
+          commands:
+            - echo "lint-kustomize"
+        - name: lint-helm
+          commands:
+            - echo "lint-helm"
+    dependencies: []
+  - name: check-for-binary-files
+    dependencies: []
+    task:
+      jobs:
+        - name: check-for-binary-files
+          commands:
+            - echo "check-for-binary-files"
+  - name: k8saas
+    dependencies: []
+    task:
+      jobs:
+        - name: Format
+          commands:
+            - echo "Format"
+        - name: Lint
+          commands:
+            - echo "Lint"
+        - name: Deadcode
+          commands:
+            - echo "Deadcode"
+        - name: Unit Tests
+          commands:
+            - echo "Unit Tests"
+  - name: admission-webhook
+    dependencies: []
+    task:
+      jobs:
+        - name: Build
+          commands:
+            - echo "admission-webhook/build"
+after_pipeline:
+  task:
+    jobs:
+      - name: Publish Results
+        commands:
+          - echo "Publish Results"
+promotions:
+  - name: k8saas AKS Integration Tests
+    pipeline_file: pipeline_2.yml
+    auto_promote:
+      when: result = 'passed'
+  - name: k8saas EKS Integration Tests
+    pipeline_file: pipeline_3.yml
+    auto_promote:
+      when: result = 'passed'
+  - name: k8saas GKE Integration Tests
+    pipeline_file: pipeline_4.yml
+    auto_promote:
+      when: result = 'passed'
+  - name: automatic deployments
+    pipeline_file: pipeline_5.yml
+  - name: test-resource-cleaner
+    pipeline_file: pipeline_6.yml
